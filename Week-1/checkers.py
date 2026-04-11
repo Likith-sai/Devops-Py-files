@@ -1,4 +1,3 @@
-from utils import load_json, setup_logger
 import logging
 import subprocess
 import requests

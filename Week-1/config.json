@@ -1,0 +1,25 @@
+{
+  "timeout": 5,
+  "servers": [
+    {
+      "name": "google-homepage",
+      "type": "http",
+      "target": "https://www.google.com"
+    },
+    {
+      "name": "cloudflare-dns",
+      "type": "ping",
+      "target": "1.1.1.1"
+    },
+    {
+      "name": "github-api",
+      "type": "http",
+      "target": "https://api.github.com"
+    },
+    {
+      "name": "local-router",
+      "type": "ping",
+      "target": "192.168.1.1"
+    }
+  ]
+}

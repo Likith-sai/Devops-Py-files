@@ -1,0 +1,22 @@
+2026-04-11 10:31:11,847 - ERROR - Error Checking google-homepage http : 'timeout'
+2026-04-11 10:31:11,847 - WARNING - google-homepage is unhealthy.
+2026-04-11 10:31:11,869 - INFO - cloudflare-dns is healthy.
+2026-04-11 10:31:11,869 - ERROR - Error Checking github-api http : 'timeout'
+2026-04-11 10:31:11,869 - WARNING - github-api is unhealthy.
+2026-04-11 10:31:11,876 - INFO - local-router is healthy.
+2026-04-11 10:31:11,876 - INFO - Health Check Report:
+Total Servers: 4
+Healthy_servers: 2
+Unhealthy_servers: 2
+
+2026-04-11 10:33:07,448 - ERROR - Error Checking google-homepage http : 'timeout'
+2026-04-11 10:33:07,448 - WARNING - google-homepage is unhealthy.
+2026-04-11 10:33:07,494 - INFO - cloudflare-dns is healthy.
+2026-04-11 10:33:07,496 - ERROR - Error Checking github-api http : 'timeout'
+2026-04-11 10:33:07,496 - WARNING - github-api is unhealthy.
+2026-04-11 10:33:07,505 - INFO - local-router is healthy.
+2026-04-11 10:33:07,505 - INFO - Health Check Report:
+Total Servers: 4
+Healthy_servers: 2
+Unhealthy_servers: 2
+

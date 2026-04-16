@@ -13,9 +13,12 @@ def check_server(server, timeout):
         elif server["type"] == "http":
             http_result = requests.get(
                 server["target"],
-                timeout = server["timeout"]
+                timeout = timeout
             )
             return http_result.status_code == 200
+        else:
+            logging.error(f"Unknown check type for {server['name']}: {server['type']}")
+            return False
     except Exception as e:
         logging.error(f"Error Checking {server['name']} {server['type']} : {e}")
         return False

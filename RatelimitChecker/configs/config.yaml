@@ -1,0 +1,19 @@
+api:
+  url: https://httpbin.org/delay/1   # endpoint to simulate latency
+  method: GET
+  timeout: 5                         # seconds
+
+load:
+  total_requests: 10                 # total number of API calls to make
+  delay_between_requests: 0.2        # seconds (to simulate steady traffic)
+
+analysis:
+  latency_threshold_ms: 1000         # threshold for acceptable latency
+  error_threshold_percent: 10        # max acceptable error rate
+
+rate_limit:
+  base_limit_per_min: 60             # starting assumption
+  increase_step: 20                  # how much to increase if system is stable
+  decrease_step: 30                  # how much to decrease if system is unstable
+  max_limit_per_min: 200            # upper bound for rate limit
+  min_limit_per_min: 20              # lower bound for rate limit

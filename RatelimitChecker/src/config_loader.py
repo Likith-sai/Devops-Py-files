@@ -1,7 +1,13 @@
-from flask import logging
+import logging
 import yaml
 
-def load_config(config_path: str)-> dict:
+logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s",
+                        filename="app.log",
+                        filemode="a")
+
+
+def load_config(config_path:str)-> dict:
     #print(type(config_path))
     try:
         with open(config_path, 'r') as file:

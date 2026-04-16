@@ -1,5 +1,10 @@
-from flask import logging
+import logging
 import requests
+
+logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s",
+                        filename="app.log",
+                        filemode="a")
 
 def make_request(url: str) -> dict:
     try:

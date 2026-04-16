@@ -1,12 +1,18 @@
 from dataclasses import dataclass
-from flask import logging
-from src.metrics import MetricResults
+import logging
+from metrics import MetricResults
+from typing import Optional
 
 @dataclass
 class RateLimitStatus:
     system_status: str
     reason: str
-    suggested_rate_limit: int | None
+    suggested_rate_limit: Optional[int]
+
+logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s",
+                        filename="app.log",
+                        filemode="a")
 
 def suggest_rate_limit(calculations: MetricResults, config:dict) -> RateLimitStatus:
     if calculations is None:
@@ -22,19 +28,19 @@ def suggest_rate_limit(calculations: MetricResults, config:dict) -> RateLimitSta
     increase_rate = config["rate_limit"]["increase_step"]
     decrease_rate = config["rate_limit"]["decrease_step"]
 
-    raw_avg_latency = calculations.get("avg_latency")
-    raw_error_rate = calculations.get("error_rate")
+    raw_avg_latency = calculations.avg_latency
+    raw_error_rate = calculations.error_rate
 
     if raw_avg_latency is None:
-        return{
-            "system_status" : "Unhealthy",
-            "reason" : "Average latency is not available in calculations."
-        }
+        return RateLimitStatus(
+            system_status="Unhealthy",
+            reason="Average latency is not available in calculations."
+        )
     if raw_error_rate is None:
-        return{
-            "system_status" : "Unhealthy",
-            "reason" : "Error rate is not available in calculations."
-        }
+        return RateLimitStatus(
+            system_status="Unhealthy",
+            reason="Error rate is not available in calculations."
+        )
 
     avg_latency = raw_avg_latency * 1000
     error_rate = raw_error_rate * 100

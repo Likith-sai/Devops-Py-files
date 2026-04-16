@@ -1,12 +1,18 @@
 from dataclasses import dataclass
-from flask import logging
+import logging
+from typing import Optional
+
+logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s",
+                        filename="app.log",
+                        filemode="a")
 
 @dataclass
 class MetricResults:
     total_requests: int
     successful_requests: int
     error_requests: int
-    max_latency: float | None
+    max_latency: Optional[float]
     avg_latency: float
     error_rate: float
 

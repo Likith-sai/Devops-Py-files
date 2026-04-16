@@ -30,7 +30,7 @@ def main():
        request_results = []
        for i in range(total_requests):
             response = make_request(url)
-            time.sleep(3)
+            time.sleep(config["load"]["delay_between_requests"])
             request_results.append(response)
     calculations = calculate_metrics(request_results)
     rate_limit = suggest_rate_limit(calculations, config)

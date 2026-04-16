@@ -1,11 +1,8 @@
 from dataclasses import dataclass
-import logging
 from typing import Optional
+import logging
 
-logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s - %(levelname)s - %(message)s",
-                        filename="app.log",
-                        filemode="a")
+logger = logging.getLogger(__name__)
 
 @dataclass
 class MetricResults:

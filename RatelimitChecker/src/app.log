@@ -1,1 +1,9 @@
 
+2026-04-16 19:16:22,565 - INFO - Configuration loaded successfully from ../configs/config.yaml
+2026-04-16 19:17:16,528 - INFO - System Status: Unhealthy
+2026-04-16 19:17:16,531 - INFO - Reason : Average latency (2367.89 ms) exceeds threshold (1000 ms)
+2026-04-16 19:17:16,531 - INFO - Suggested rate limit: 30 requests per minute
+2026-04-16 19:23:46,809 - INFO - Configuration loaded successfully from ../configs/config.yaml
+2026-04-16 19:24:40,938 - INFO - System Status: Unhealthy
+2026-04-16 19:24:40,940 - INFO - Reason : Average latency (2395.43 ms) exceeds threshold (1000 ms)
+2026-04-16 19:24:40,940 - INFO - Suggested rate limit: 30 requests per minute

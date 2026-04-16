@@ -3,23 +3,22 @@ import logging
 from metrics import MetricResults
 from typing import Optional
 
+logger = logging.getLogger(__name__)
+
+
 @dataclass
 class RateLimitStatus:
     system_status: str
     reason: str
     suggested_rate_limit: Optional[int]
 
-logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s - %(levelname)s - %(message)s",
-                        filename="app.log",
-                        filemode="a")
 
 def suggest_rate_limit(calculations: MetricResults, config:dict) -> RateLimitStatus:
     if calculations is None:
-        logging.error("No calculations provided for rate limit suggestion.")
+        logger.error("No calculations provided for rate limit suggestion.")
         return 
     elif config is None:
-        logging.error("No configuration provided for rate limit suggestion.")
+        logger.error("No configuration provided for rate limit suggestion.")
         return
 
     latency_threshold = config["analysis"]["latency_threshold_ms"]
@@ -31,16 +30,16 @@ def suggest_rate_limit(calculations: MetricResults, config:dict) -> RateLimitSta
     raw_avg_latency = calculations.avg_latency
     raw_error_rate = calculations.error_rate
 
-    if raw_avg_latency is None:
-        return RateLimitStatus(
-            system_status="Unhealthy",
-            reason="Average latency is not available in calculations."
-        )
-    if raw_error_rate is None:
-        return RateLimitStatus(
-            system_status="Unhealthy",
-            reason="Error rate is not available in calculations."
-        )
+    # if raw_avg_latency is None:
+    #     return RateLimitStatus(
+    #         system_status="Unhealthy",
+    #         reason="Average latency is not available in calculations."
+    #     )
+    # if raw_error_rate is None:
+    #     return RateLimitStatus(
+    #         system_status="Unhealthy",
+    #         reason="Error rate is not available in calculations."
+    #     )
 
     avg_latency = raw_avg_latency * 1000
     error_rate = raw_error_rate * 100

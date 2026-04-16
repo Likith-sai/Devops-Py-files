@@ -1,10 +1,7 @@
 import logging
 import requests
 
-logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s - %(levelname)s - %(message)s",
-                        filename="app.log",
-                        filemode="a")
+logger = logging.getLogger(__name__)
 
 def make_request(url: str) -> dict:
     try:
@@ -15,5 +12,5 @@ def make_request(url: str) -> dict:
             "response_time": response_time
         }
     except requests.exceptions.RequestException as e:
-        logging.error(f"HTTP Request failed: {e}")
+        logger.error(f"HTTP Request failed: {e}")
         return None

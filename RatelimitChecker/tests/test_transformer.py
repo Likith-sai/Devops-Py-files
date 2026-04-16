@@ -28,9 +28,9 @@ def test_healthy_system():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["system_status"] == "Healthy"
-    assert result["suggested_rate_limit"] == 60
-    assert "within acceptable" in result["reason"]
+    assert result.system_status == "Healthy"
+    assert result.suggested_rate_limit == 60
+    assert "within acceptable" in result.reason
 
 
 # High latency → decrease rate
@@ -43,9 +43,9 @@ def test_high_latency():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["system_status"] == "Unhealthy"
-    assert result["suggested_rate_limit"] == 40
-    assert "latency" in result["reason"]
+    assert result.system_status == "Unhealthy"
+    assert result.suggested_rate_limit == 40
+    assert "latency" in result.reason
 
 
 # High error rate → decrease rate
@@ -58,9 +58,9 @@ def test_high_error_rate():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["system_status"] == "Unhealthy"
-    assert result["suggested_rate_limit"] == 40
-    assert "Error rate" in result["reason"]
+    assert result.system_status == "Unhealthy"
+    assert result.suggested_rate_limit == 40
+    assert "Error rate" in result.reason
 
 
 #  Both high → decrease rate
@@ -73,9 +73,9 @@ def test_high_latency_and_error():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["system_status"] == "Unhealthy"
-    assert result["suggested_rate_limit"] == 40
-    assert "latency" in result["reason"] and "Error rate" in result["reason"]
+    assert result.system_status == "Unhealthy"
+    assert result.suggested_rate_limit == 40
+    assert "latency" in result.reason and "Error rate" in result.reason
 
 
 #  Min rate boundary
@@ -91,7 +91,7 @@ def test_min_rate_enforced():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["suggested_rate_limit"] == 20  # min limit
+    assert result.suggested_rate_limit == 20  # min limit
 
 
 # Max rate boundary
@@ -107,7 +107,7 @@ def test_max_rate_enforced():
 
     result = suggest_rate_limit(calculations, config)
 
-    assert result["suggested_rate_limit"] == 100  # max limit
+    assert result.suggested_rate_limit == 100  # max limit
 
 
 #  Missing calculations

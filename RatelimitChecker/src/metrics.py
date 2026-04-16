@@ -1,4 +1,16 @@
-def calculate_metrics(request_results):
+from dataclasses import dataclass
+from flask import logging
+
+@dataclass
+class MetricResults:
+    total_requests: int
+    successful_requests: int
+    error_requests: int
+    max_latency: float | None
+    avg_latency: float
+    error_rate: float
+
+def calculate_metrics(request_results: list[dict]) -> MetricResults:
     total_requests = 0
     successful_requests = 0
     max_latency = None
@@ -27,11 +39,11 @@ def calculate_metrics(request_results):
 
     error_rate = error_requests / total_requests if total_requests > 0 else 0
 
-    return{
-        "total_requests": total_requests,
-        "successful_requests": successful_requests,
-        "error_requests": error_requests,
-        "max_latency": max_latency,
-        "avg_latency": avg_latency,
-        "error_rate": error_rate
-    }
+    return MetricResults(
+        total_requests=total_requests,
+        successful_requests=successful_requests,
+        error_requests=error_requests,
+        max_latency=max_latency,
+        avg_latency=avg_latency,
+        error_rate=error_rate
+    )

@@ -5,7 +5,6 @@ api:
 
 load:
   total_requests: 10                 # total number of API calls to make
-  delay_between_requests: 0.2        # seconds (to simulate steady traffic)
 
 analysis:
   latency_threshold_ms: 1000         # threshold for acceptable latency

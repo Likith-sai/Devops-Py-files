@@ -1,9 +1,19 @@
-def suggest_rate_limit(calculations, config):
+from dataclasses import dataclass
+from flask import logging
+from src.metrics import MetricResults
+
+@dataclass
+class RateLimitStatus:
+    system_status: str
+    reason: str
+    suggested_rate_limit: int | None
+
+def suggest_rate_limit(calculations: MetricResults, config:dict) -> RateLimitStatus:
     if calculations is None:
-        print("No calculations provided for rate limit suggestion.")
+        logging.error("No calculations provided for rate limit suggestion.")
         return 
     elif config is None:
-        print("No configuration provided for rate limit suggestion.")
+        logging.error("No configuration provided for rate limit suggestion.")
         return
 
     latency_threshold = config["analysis"]["latency_threshold_ms"]
@@ -47,18 +57,18 @@ def suggest_rate_limit(calculations, config):
             reason = f"Error rate ({error_rate:.2f}%) exceeds threshold ({error_threshold_percent}%)"
         elif is_latency_high and is_error_high:
             reason = f"Average latency ({avg_latency:.2f} ms) and Error rate ({error_rate:.2f}%) are above thresholds ({latency_threshold} ms and {error_threshold_percent}%) respectively"
-        return{
-            "system_status": system_status,
-            "suggested_rate_limit": base_rate,
-            "reason": reason
-        }
+        return RateLimitStatus(
+            system_status=system_status,
+            suggested_rate_limit=base_rate,
+            reason=reason
+        )
     else:
         system_status = "Healthy"
         base_rate = base_rate + increase_rate
         if base_rate > max_rate:
             base_rate = max_rate
-        return{
-            "system_status": system_status,
-            "suggested_rate_limit": base_rate,
-            "reason": f"Average latency is ({avg_latency:.2f} ms) and error rate is ({error_rate:.2f}%). Both are within acceptable thresholds."
-        }
+        return RateLimitStatus(
+            system_status=system_status,
+            suggested_rate_limit=base_rate,
+            reason=f"Average latency is ({avg_latency:.2f} ms) and error rate is ({error_rate:.2f}%). Both are within acceptable thresholds."
+        )

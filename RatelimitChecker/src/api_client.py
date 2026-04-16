@@ -1,6 +1,7 @@
+from flask import logging
 import requests
 
-def make_request(url):
+def make_request(url: str) -> dict:
     try:
         response = requests.get(url)
         response_time = response.elapsed.total_seconds()
@@ -9,5 +10,5 @@ def make_request(url):
             "response_time": response_time
         }
     except requests.exceptions.RequestException as e:
-        print(f"HTTP Request failed: {e}")
+        logging.error(f"HTTP Request failed: {e}")
         return None
